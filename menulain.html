@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coffee Kita - Full Menu Gallery</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI',sans-serif;
+    }
+
+    body{
+      background:
+      linear-gradient(rgba(101,75,56,0.9), rgba(70,50,35,0.95)),
+      url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80');
+
+      background-size:cover;
+      background-attachment:fixed;
+      color:#f5e6d3;
+      padding-top:100px;
+      min-height:100vh;
+    }
+
+    header{
+      padding:20px 50px;
+      background:rgba(101,75,56,0.7);
+      backdrop-filter:blur(10px);
+
+      position:fixed;
+      top:0;
+      width:100%;
+      z-index:1000;
+
+      border-bottom:1px solid rgba(255,255,255,0.1);
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      max-width:1400px;
+      margin:auto;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      font-size:28px;
+      font-weight:700;
+      color:#fff;
+      text-decoration:none;
+    }
+
+    .logo img{
+      height:50px;
+      margin-right:15px;
+      border-radius:5px;
+    }
+
+    .menu-container{
+      max-width:1200px;
+      margin:auto;
+      padding:50px 20px;
+    }
+
+    .category-title{
+      font-size:42px;
+      text-align:center;
+      margin-bottom:50px;
+      color:#d4a574;
+      text-transform:uppercase;
+      letter-spacing:2px;
+
+      border-bottom:2px solid rgba(212,165,116,0.3);
+      display:inline-block;
+      width:100%;
+      padding-bottom:10px;
+    }
+
+    .product-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+      margin-bottom:80px;
+    }
+
+    .product-card{
+      background:rgba(255,255,255,0.05);
+      border-radius:20px;
+      padding:20px;
+      text-align:center;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.1);
+      backdrop-filter:blur(5px);
+    }
+
+    .product-card:hover{
+      transform:translateY(-10px);
+      background:rgba(212,165,116,0.1);
+      border-color:#d4a574;
+    }
+
+    .product-card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      border-radius:15px;
+      margin-bottom:15px;
+    }
+
+    .product-card h3{
+      font-size:22px;
+      margin-bottom:10px;
+      color:#fff;
+    }
+
+    .product-card p{
+      font-size:14px;
+      opacity:0.8;
+      margin-bottom:20px;
+      line-height:1.4;
+    }
+
+    .price-tag{
+      font-weight:bold;
+      color:#d4a574;
+      font-size:18px;
+      display:block;
+      margin-bottom:15px;
+    }
+
+    .btn-buy{
+      background:#d4a574;
+      color:#3d2b1f;
+      border:none;
+      padding:12px;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+      width:100%;
+      transition:0.3s;
+    }
+
+    .btn-buy:hover{
+      background:#fff;
+    }
+
+    .back-btn{
+      display:inline-block;
+      margin-bottom:30px;
+      color:#d4a574;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    /* FLOAT CART */
+
+    .cart-float{
+      position:fixed;
+      bottom:30px;
+      right:30px;
+
+      width:60px;
+      height:60px;
+
+      border-radius:50%;
+      background:#d4a574;
+      color:#3d2b1f;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:24px;
+      cursor:pointer;
+      z-index:2000;
+
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .cart-count{
+      position:absolute;
+      top:-5px;
+      right:-5px;
+
+      background:#fff;
+      color:#000;
+
+      font-size:12px;
+      font-weight:bold;
+
+      padding:3px 7px;
+      border-radius:50%;
+    }
+
+    /* CART MODAL */
+
+    .cart-modal{
+      position:fixed;
+      top:0;
+      left:0;
+
+      width:100%;
+      height:100%;
+
+      background:rgba(0,0,0,0.7);
+
+      display:none;
+      justify-content:center;
+      align-items:center;
+
+      z-index:3000;
+    }
+
+    .cart-content{
+      background:#fff;
+      color:#333;
+
+      width:90%;
+      max-width:500px;
+      max-height:80vh;
+
+      overflow-y:auto;
+
+      border-radius:15px;
+      padding:30px;
+    }
+
+    .cart-title{
+      margin-bottom:20px;
+      color:#3d2b1f;
+    }
+
+    .cart-item{
+      border-bottom:1px solid #ddd;
+      padding:15px 0;
+    }
+
+    .cart-top{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+    }
+
+    .cart-name{
+      font-weight:bold;
+    }
+
+    .cart-price{
+      color:#3d2b1f;
+      font-weight:bold;
+    }
+
+    .cart-actions{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .qty-btn{
+      width:28px;
+      height:28px;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+
+      background:#d4a574;
+      color:#3d2b1f;
+      font-weight:bold;
+    }
+
+    .delete-btn{
+      border:none;
+      background:#b22222;
+      color:#fff;
+
+      padding:6px 12px;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    .total-box{
+      margin-top:20px;
+      text-align:right;
+      font-size:20px;
+      font-weight:bold;
+      color:#3d2b1f;
+    }
+
+    .btn-checkout{
+      width:100%;
+      margin-top:15px;
+      padding:12px;
+
+      border:none;
+      border-radius:8px;
+
+      background:#3d2b1f;
+      color:#fff;
+
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .btn-close{
+      width:100%;
+      margin-top:10px;
+      padding:10px;
+
+      border:none;
+      background:none;
+
+      cursor:pointer;
+      color:#777;
+    }
+
+    footer{
+      text-align:center;
+      padding:40px;
+      opacity:0.6;
+      font-size:14px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <a href="home.html" class="logo">
+        <img src="assets/images/logo.jpeg" alt="Logo">
+        Coffee Kita
+      </a>
+    </nav>
+  </header>
+
+  <section class="menu-container">
+
+    <a href="home.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+    </a>
+
+    <!-- COFFEE MENU -->
+
+    <h2 class="category-title">Coffee Based Drinks</h2>
+
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="assets/images/americano.jpeg" alt="">
+        <h3>Classic Americano</h3>
+        <p>Espresso shot dengan air panas, memberikan rasa yang bersih dan kuat.</p>
+        <span class="price-tag">Rp 22.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Classic Americano',22000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/images/cappucino.jpeg" alt="">
+        <h3>Cappuccino</h3>
+        <p>Keseimbangan sempurna antara espresso, susu panas, dan foam tebal.</p>
+        <span class="price-tag">Rp 28.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Cappuccino',28000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/images/vanillalate.jpeg" alt="">
+        <h3>Vanilla Latte</h3>
+        <p>Espresso creamy dengan sentuhan sirup vanilla premium.</p>
+        <span class="price-tag">Rp 30.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Vanilla Latte',30000)">
+          ADD TO CART
+        </button>
+      </div>
+
+    </div>
+
+    <!-- NON COFFEE -->
+
+    <h2 class="category-title">Non-Coffee Drinks</h2>
+
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="assets/images/matchalatte.jpeg" alt="">
+        <h3>Premium Matcha Latte</h3>
+        <p>Teh hijau Jepang kualitas tinggi dengan susu segar yang lembut.</p>
+        <span class="price-tag">Rp 32.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Premium Matcha Latte',32000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/images/coffecream.jpeg" alt="">
+        <h3>Signature Chocolate</h3>
+        <p>Cokelat blend kekentalan tinggi dengan topping whipped cream.</p>
+        <span class="price-tag">Rp 30.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Signature Chocolate',30000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/images/coffemilk.jpeg" alt="">
+        <h3>Sweet Fresh Milk</h3>
+        <p>Susu murni pilihan dengan sedikit sentuhan rasa manis alami.</p>
+        <span class="price-tag">Rp 20.000</span>
+
+        <button class="btn-buy"
+        onclick="addToCart('Sweet Fresh Milk',20000)">
+          ADD TO CART
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FLOAT CART -->
+
+  <div class="cart-float" onclick="toggleCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cart-count">0</span>
+  </div>
+
+  <!-- CART MODAL -->
+
+  <div class="cart-modal" id="cart-modal">
+
+    <div class="cart-content">
+
+      <h3 class="cart-title">Keranjang Pesanan</h3>
+
+      <div id="cart-items-list"></div>
+
+      <div class="total-box">
+        Total : Rp <span id="cart-total">0</span>
+      </div>
+
+      <button class="btn-checkout" onclick="checkout()">
+        Selesaikan Pesanan
+      </button>
+
+      <button class="btn-close" onclick="toggleCart()">
+        Tutup
+      </button>
+
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2024 Coffee Kita. All Rights Reserved.
+  </footer>
+
+  <script>
+
+    let cart = JSON.parse(localStorage.getItem('coffeeCart')) || [];
+
+    updateCartUI();
+
+    function addToCart(name, price){
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if(existingItem){
+        existingItem.qty += 1;
+      } else {
+        cart.push({
+          name,
+          price,
+          qty:1
+        });
+      }
+
+      saveCart();
+
+      alert(name + " berhasil ditambahkan!");
+    }
+
+    function saveCart(){
+      localStorage.setItem('coffeeCart', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function updateCartUI(){
+
+      const countEl = document.getElementById('cart-count');
+      const listEl = document.getElementById('cart-items-list');
+      const totalEl = document.getElementById('cart-total');
+
+      listEl.innerHTML = "";
+
+      let total = 0;
+      let totalQty = 0;
+
+      cart.forEach((item,index)=>{
+
+        total += item.price * item.qty;
+        totalQty += item.qty;
+
+        listEl.innerHTML += `
+
+          <div class="cart-item">
+
+            <div class="cart-top">
+
+              <span class="cart-name">
+                ${item.name}
+              </span>
+
+              <span class="cart-price">
+                Rp ${(item.price * item.qty).toLocaleString('id-ID')}
+              </span>
+
+            </div>
+
+            <div class="cart-actions">
+
+              <div class="qty-box">
+
+                <button class="qty-btn"
+                onclick="changeQty(${index}, -1)">
+                  -
+                </button>
+
+                <span>${item.qty}</span>
+
+                <button class="qty-btn"
+                onclick="changeQty(${index}, 1)">
+                  +
+                </button>
+
+              </div>
+
+              <button class="delete-btn"
+              onclick="removeItem(${index})">
+                Hapus
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+      });
+
+      countEl.innerText = totalQty;
+      totalEl.innerText = total.toLocaleString('id-ID');
+    }
+
+    function changeQty(index, change){
+
+      cart[index].qty += change;
+
+      if(cart[index].qty <= 0){
+        cart.splice(index,1);
+      }
+
+      saveCart();
+    }
+
+    function removeItem(index){
+
+      if(confirm("Hapus menu ini dari keranjang?")){
+        cart.splice(index,1);
+        saveCart();
+      }
+    }
+
+    function toggleCart(){
+
+      const modal = document.getElementById('cart-modal');
+
+      modal.style.display =
+      modal.style.display === 'flex'
+      ? 'none'
+      : 'flex';
+    }
+
+    function checkout(){
+
+      if(cart.length === 0){
+        alert("Keranjang masih kosong!");
+        return;
+      }
+
+      alert("Pesanan berhasil dibuat!\nSilahkan lakukan pembayaran di kasir (Cash Only).");
+
+      cart = [];
+
+      saveCart();
+
+      toggleCart();
+    }
+
+  </script>
+
+</body>
+</html>
