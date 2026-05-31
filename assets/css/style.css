@@ -1,0 +1,307 @@
+/* --- ABOUT SECTION PREMIUM VERSION --- */
+.about-section {
+  padding: 120px 50px;
+  background: rgba(20, 15, 10, 0.6); 
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  /* Agar saat diklik dari menu, posisi tidak tertutup header */
+  scroll-margin-top: 80px; 
+}
+
+/* Dekorasi teks latar belakang besar */
+.about-section::before {
+  content: "COFFEE";
+  position: absolute;
+  font-size: 15rem;
+  font-weight: 900;
+  color: rgba(212, 165, 116, 0.03);
+  top: -50px;
+  right: -50px;
+  z-index: 0;
+}
+
+.about-container {
+  max-width: 1400px; /* Diperlebar sedikit agar kolom teks lebih lega */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  gap: 60px; 
+  position: relative;
+  z-index: 1;
+}
+
+.about-image-box {
+  flex: 1;
+}
+
+/* Frame Gambar Melengkung Sesuai Referensi */
+.about-image-box img {
+  width: 100%;
+  height: auto;
+  max-height: 550px;
+  object-fit: cover;
+  border-radius: 15px;
+  /* Lengkungan tajam di sisi kanan atas sesuai gambar referensi */
+  border-top-right-radius: 280px; 
+  box-shadow: 25px 25px 0px -5px rgba(212, 165, 116, 0.25);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-image-box img:hover {
+  transform: scale(1.02);
+  box-shadow: 15px 15px 0px -5px rgba(212, 165, 116, 0.5);
+}
+
+.about-content {
+  flex: 1.5;
+}
+
+.about-content h2 {
+  font-size: 52px; /* Lebih besar dan tegas */
+  color: #fff;
+  margin-bottom: 40px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* Pembungkus teks 3 kolom sesuai referensi */
+.about-text-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.about-text-wrapper p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #f5e6d3;
+  opacity: 0.85;
+  text-align: justify;
+}
+
+/* Tagline di bawah teks kolom */
+.tagline {
+  font-size: 32px;
+  font-weight: 400;
+  color: #fff;
+  margin-top: 20px;
+  font-family: 'Georgia', serif; /* Font klasik sesuai referensi */
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Responsif Mobile */
+@media (max-width: 1024px) {
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+  .about-text-wrapper {
+    grid-template-columns: 1fr; /* Jadi 1 kolom di HP */
+    gap: 15px;
+  }
+  .about-content h2 {
+    font-size: 38px;
+  }
+  .about-image-box img {
+    max-height: 400px;
+    border-top-right-radius: 150px;
+  }
+}
+
+/* --- KERANJANG CSS --- */
+    .cart-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #d4a574;
+      color: #3d2b1f;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #fff;
+      color: #000;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 3px 7px;
+      border-radius: 50%;
+    }
+    .cart-modal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none; /* Default sembunyi */
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+    .cart-content {
+      background: #fff;
+      color: #333;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 450px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+    .total-box {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: right;
+    }
+    .payment-info {
+      margin-top: 15px;
+      padding: 10px;
+      background: #fff3cd;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .btn-checkout {
+      background: #3d2b1f;
+      color: #fff;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Container untuk tombol auth */
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Gaya tombol LOGIN (Garis Emas) */
+.btn-login {
+    color: #d4a574;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 20px;
+    border: 1px solid #d4a574;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: rgba(212, 165, 116, 0.1);
+    color: #fff;
+}
+
+/* Gaya tombol SIGN IN (Emas Solid) */
+.btn-signup {
+    background: #d4a574;
+    color: #3d2b1f;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 9px 22px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-signup:hover {
+    background: #fff;
+    transform: translateY(-2px);
+}
+
+/* REVIEW SECTION */
+.review-section {
+    padding: 80px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    scroll-margin-top: 80px;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    transition: 0.3s;
+    position: relative;
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    border-color: #d4a574;
+    background: rgba(212, 165, 116, 0.1);
+}
+
+.quote-icon {
+    font-size: 30px;
+    color: #d4a574;
+    margin-bottom: 15px;
+    opacity: 0.5;
+}
+
+.review-text {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #d4a574;
+}
+
+.user-details h4 {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+.stars {
+    color: #d4a574;
+    font-size: 12px;
+}

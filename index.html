@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Coffee Kita</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', sans-serif;
+        }
+
+        body{
+            background:
+            linear-gradient(rgba(44,32,22,0.8), rgba(44,32,22,0.8)),
+            url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80');
+
+            background-size:cover;
+            background-position:center;
+
+            height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .login-container{
+            background:rgba(255,255,255,0.1);
+
+            backdrop-filter:blur(15px);
+
+            padding:40px;
+
+            border-radius:20px;
+
+            border:1px solid rgba(212,165,116,0.3);
+
+            width:100%;
+            max-width:400px;
+
+            text-align:center;
+
+            color:#f5e6d3;
+        }
+
+        .logo-login{
+            width:80px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        h2{
+            margin-bottom:30px;
+            color:#d4a574;
+            font-size:28px;
+            letter-spacing:1px;
+        }
+
+        .input-group{
+            margin-bottom:20px;
+            text-align:left;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:8px;
+            font-size:14px;
+            opacity:0.9;
+        }
+
+        .input-group input{
+            width:100%;
+            padding:12px 15px;
+
+            border-radius:8px;
+
+            border:1px solid rgba(255,255,255,0.2);
+
+            background:rgba(255,255,255,0.05);
+
+            color:#fff;
+
+            outline:none;
+
+            transition:0.3s;
+        }
+
+        .input-group input:focus{
+            border-color:#d4a574;
+            background:rgba(255,255,255,0.1);
+        }
+
+        .btn-submit{
+            width:100%;
+
+            padding:12px;
+
+            background:#d4a574;
+
+            color:#3d2b1f;
+
+            border:none;
+
+            border-radius:8px;
+
+            font-weight:bold;
+
+            font-size:16px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+            margin-top:10px;
+        }
+
+        .btn-submit:hover{
+            background:#fff;
+            transform:translateY(-2px);
+        }
+
+        .footer-text{
+            margin-top:25px;
+            font-size:14px;
+        }
+
+        .footer-text a{
+            color:#d4a574;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+        .back-home{
+            display:block;
+            margin-top:20px;
+            color:#fff;
+            text-decoration:none;
+            font-size:12px;
+            opacity:0.7;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <img src="assets/images/logocoffe.png" alt="Logo" class="logo-login">
+
+        <h2>LOGIN</h2>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <label>Email / Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Masukkan email anda..."
+                    required
+                >
+            </div>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Masukkan password..."
+                    required
+                >
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                MASUK SEKARANG
+            </button>
+
+        </form>
+
+        <p class="footer-text">
+            Belum punya akun?
+            <a href="signup.html">Daftar di sini</a>
+        </p>
+
+        <a href="index.html" class="back-home">
+            ← Kembali ke Beranda
+        </a>
+
+    </div>
+
+    <script>
+
+        const loginForm = document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", function(e){
+
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // ambil data akun dari signup
+            const savedUser = localStorage.getItem("username");
+            const savedPass = localStorage.getItem("password");
+
+            // cek login
+            if(username === savedUser && password === savedPass){
+
+                // simpan status login
+                localStorage.setItem("isLogin", "true");
+
+                alert("Login berhasil!");
+
+                // masuk ke halaman utama
+                window.location.href = "home.html";
+
+            } else {
+
+                alert("Akun belum terdaftar atau password salah!");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

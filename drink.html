@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drinks Menu - Coffee Kita</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:
+        linear-gradient(rgba(44,32,22,0.9), rgba(44,32,22,0.9)),
+        url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80');
+      background-size:cover;
+      background-attachment:fixed;
+      color:#f5e6d3;
+      min-height:100vh;
+    }
+
+    header{
+      padding:15px 50px;
+      background:rgba(60,42,33,0.95);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      border-bottom:1px solid rgba(212,165,116,0.2);
+    }
+
+    .btn-kembali{
+      color:#d4a574;
+      text-decoration:none;
+      font-size:22px;
+      transition:0.3s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      border-radius:50%;
+    }
+
+    .btn-kembali:hover{
+      background:rgba(212,165,116,0.1);
+      color:#fff;
+    }
+
+    .logo-header{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:bold;
+      color:#fff;
+    }
+
+    .menu-container{
+      padding:60px 20px;
+      max-width:1200px;
+      margin:0 auto;
+      text-align:center;
+    }
+
+    .menu-title{
+      font-size:42px;
+      color:#d4a574;
+      margin-bottom:50px;
+      text-transform:uppercase;
+      letter-spacing:4px;
+    }
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .menu-card{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(15px);
+      border-radius:20px;
+      padding:30px;
+      border:1px solid rgba(255,255,255,0.1);
+      transition:0.3s;
+    }
+
+    .menu-card:hover{
+      transform:translateY(-10px);
+      background:rgba(255,255,255,0.1);
+      border-color:#d4a574;
+    }
+
+    .menu-card img{
+      width:100%;
+      height:230px;
+      object-fit:cover;
+      border-radius:15px;
+      margin-bottom:20px;
+    }
+
+    .menu-card h3{
+      font-size:24px;
+      margin-bottom:15px;
+      color:#fff;
+    }
+
+    .menu-card p{
+      font-size:14px;
+      opacity:0.8;
+      margin-bottom:20px;
+      min-height:45px;
+    }
+
+    .price{
+      font-size:22px;
+      font-weight:bold;
+      color:#d4a574;
+      display:block;
+      margin-bottom:25px;
+    }
+
+    .btn-cart{
+      background:#d4a574;
+      color:#3d2b1f;
+      border:none;
+      padding:14px 0;
+      width:100%;
+      border-radius:10px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .btn-cart:hover{
+      background:#fff;
+    }
+
+    /* =======================
+       CART
+    ======================= */
+
+    .cart-float{
+      position:fixed;
+      bottom:30px;
+      right:30px;
+      background:#d4a574;
+      color:#3d2b1f;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:24px;
+      cursor:pointer;
+      z-index:2000;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .cart-count{
+      position:absolute;
+      top:-5px;
+      right:-5px;
+      background:#fff;
+      color:#000;
+      font-size:12px;
+      font-weight:bold;
+      padding:3px 7px;
+      border-radius:50%;
+    }
+
+    .cart-modal{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.7);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:3000;
+    }
+
+    .cart-content{
+      background:#fff;
+      color:#333;
+      padding:30px;
+      border-radius:15px;
+      width:90%;
+      max-width:500px;
+      max-height:80vh;
+      overflow-y:auto;
+    }
+
+    .cart-item{
+      border-bottom:1px solid #eee;
+      padding:15px 0;
+    }
+
+    .cart-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .cart-name{
+      font-weight:bold;
+      color:#3d2b1f;
+    }
+
+    .cart-price{
+      color:#d4a574;
+      font-weight:bold;
+    }
+
+    .cart-actions{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .qty-box{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .qty-btn{
+      width:30px;
+      height:30px;
+      border:none;
+      border-radius:5px;
+      background:#d4a574;
+      color:#3d2b1f;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .delete-btn{
+      border:none;
+      background:#b22222;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:5px;
+      cursor:pointer;
+      font-size:13px;
+    }
+
+    .total-box{
+      margin-top:20px;
+      font-size:1.2rem;
+      font-weight:bold;
+      text-align:right;
+      color:#3d2b1f;
+    }
+
+    .btn-checkout{
+      background:#3d2b1f;
+      color:#fff;
+      width:100%;
+      padding:12px;
+      margin-top:15px;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    .btn-checkout:hover{
+      background:#d4a574;
+      color:#3d2b1f;
+    }
+
+    .close-btn{
+      width:100%;
+      background:none;
+      border:none;
+      margin-top:10px;
+      cursor:pointer;
+      color:#888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="home.html" class="btn-kembali">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="logo-header">
+      <img src="assets/images/logocoffe.png"
+           alt="Logo"
+           style="height:35px; border-radius:5px;">
+      <span>Coffee Kita</span>
+    </div>
+  </header>
+
+  <!-- MENU -->
+  <div class="menu-container">
+
+    <h1 class="menu-title">Drinks Selection</h1>
+
+    <div class="menu-grid">
+
+      <div class="menu-card">
+        <img src="assets/images/bobahijau.jpeg" alt="Matcha">
+        <h3>Matcha Boba</h3>
+        <p>
+          Teh hijau Jepang asli yang segar dipadukan dengan
+          susu creamy dan topping boba.
+        </p>
+        <span class="price">Rp 32.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Matcha Boba', 32000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <img src="assets/images/strawberry.jpeg" alt="Strawberry">
+        <h3>Strawberry Cream Frappe</h3>
+        <p>
+          Kesegaran strawberry buah asli dipadukan dengan
+          whipped cream lembut.
+        </p>
+        <span class="price">Rp 35.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Strawberry Cream Frappe', 35000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <img src="assets/images/caramell.jpeg" alt="Caramel">
+        <h3>Caramel Swirl Cream</h3>
+        <p>
+          Perpaduan manisnya karamel dengan tekstur yang creamy.
+        </p>
+        <span class="price">Rp 35.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Caramel Swirl Cream', 35000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <img src="assets/images/javachip.jpeg" alt="Java Chip">
+        <h3>Java Chip Frappe</h3>
+        <p>
+          Cokelat diblender halus dengan taburan keripik cokelat.
+        </p>
+        <span class="price">Rp 33.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Java Chip Frappe', 33000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <img src="assets/images/vanilla.jpeg" alt="Vanilla">
+        <h3>Vanilla Snow Cream</h3>
+        <p>
+          Minuman vanila yang manis, ringan, dan menyegarkan.
+        </p>
+        <span class="price">Rp 33.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Vanilla Snow Cream', 33000)">
+          ADD TO CART
+        </button>
+      </div>
+
+      <div class="menu-card">
+        <img src="assets/images/darkchoco.jpeg" alt="Chocolate">
+        <h3>Signature Chocolate Blended</h3>
+        <p>
+          Cokelat premium dengan topping krim melimpah.
+        </p>
+        <span class="price">Rp 36.000</span>
+        <button class="btn-cart"
+                onclick="addToCart('Signature Chocolate Blended', 36000)">
+          ADD TO CART
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOAT CART -->
+  <div class="cart-float" onclick="toggleCart()">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="cart-count" id="cart-count">0</span>
+  </div>
+
+  <!-- CART MODAL -->
+  <div class="cart-modal" id="cart-modal">
+
+    <div class="cart-content">
+
+      <h3 style="margin-bottom:20px; color:#3d2b1f;">
+        Keranjang Minuman
+      </h3>
+
+      <div id="cart-items-list"></div>
+
+      <div class="total-box">
+        Total: Rp <span id="cart-total">0</span>
+      </div>
+
+      <button class="btn-checkout" onclick="checkout()">
+        Selesaikan Pesanan
+      </button>
+
+      <button class="close-btn" onclick="toggleCart()">
+        Tutup
+      </button>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    // =========================
+    // LOCAL STORAGE
+    // =========================
+
+    let cart = JSON.parse(localStorage.getItem("coffeeCart")) || [];
+
+    updateCartUI();
+
+    // =========================
+    // TAMBAH KE KERANJANG
+    // =========================
+
+    function addToCart(name, price){
+
+      const existingItem = cart.find(item => item.name === name);
+
+      if(existingItem){
+        existingItem.qty += 1;
+      } else {
+        cart.push({
+          name: name,
+          price: price,
+          qty: 1
+        });
+      }
+
+      saveCart();
+      updateCartUI();
+
+      alert(name + " ditambahkan ke keranjang!");
+    }
+
+    // =========================
+    // SIMPAN LOCAL STORAGE
+    // =========================
+
+    function saveCart(){
+      localStorage.setItem("coffeeCart", JSON.stringify(cart));
+    }
+
+    // =========================
+    // UPDATE UI KERANJANG
+    // =========================
+
+    function updateCartUI(){
+
+      const countEl = document.getElementById("cart-count");
+      const listEl  = document.getElementById("cart-items-list");
+      const totalEl = document.getElementById("cart-total");
+
+      listEl.innerHTML = "";
+
+      let total = 0;
+      let totalItem = 0;
+
+      cart.forEach((item, index) => {
+
+        const subtotal = item.price * item.qty;
+
+        total += subtotal;
+        totalItem += item.qty;
+
+        listEl.innerHTML += `
+          <div class="cart-item">
+
+            <div class="cart-top">
+              <span class="cart-name">${item.name}</span>
+              <span class="cart-price">
+                Rp ${subtotal.toLocaleString("id-ID")}
+              </span>
+            </div>
+
+            <div class="cart-actions">
+
+              <div class="qty-box">
+
+                <button class="qty-btn"
+                        onclick="decreaseQty(${index})">
+                  -
+                </button>
+
+                <span>${item.qty}</span>
+
+                <button class="qty-btn"
+                        onclick="increaseQty(${index})">
+                  +
+                </button>
+
+              </div>
+
+              <button class="delete-btn"
+                      onclick="removeItem(${index})">
+                Hapus
+              </button>
+
+            </div>
+
+          </div>
+        `;
+      });
+
+      countEl.innerText = totalItem;
+      totalEl.innerText = total.toLocaleString("id-ID");
+    }
+
+    // =========================
+    // TAMBAH JUMLAH
+    // =========================
+
+    function increaseQty(index){
+
+      cart[index].qty += 1;
+
+      saveCart();
+      updateCartUI();
+    }
+
+    // =========================
+    // KURANG JUMLAH
+    // =========================
+
+    function decreaseQty(index){
+
+      if(cart[index].qty > 1){
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    // =========================
+    // HAPUS ITEM
+    // =========================
+
+    function removeItem(index){
+
+      if(confirm("Hapus menu ini dari keranjang?")){
+
+        cart.splice(index, 1);
+
+        saveCart();
+        updateCartUI();
+      }
+    }
+
+    // =========================
+    // TOGGLE MODAL
+    // =========================
+
+    function toggleCart(){
+
+      const modal = document.getElementById("cart-modal");
+
+      modal.style.display =
+        modal.style.display === "flex"
+        ? "none"
+        : "flex";
+    }
+
+    // =========================
+    // CHECKOUT
+    // =========================
+
+    function checkout(){
+
+      if(cart.length === 0){
+        alert("Keranjang kamu masih kosong.");
+        return;
+      }
+
+      alert(
+        "Pesanan minuman diterima!\n\n" +
+        "Silahkan bayar di kasir.\n" +
+        "Metode pembayaran: Cash Only."
+      );
+
+      cart = [];
+
+      saveCart();
+      updateCartUI();
+
+      toggleCart();
+    }
+
+  </script>
+
+</body>
+</html>

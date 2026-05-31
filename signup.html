@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Coffee Kita</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Segoe UI', sans-serif;
+        }
+
+        body{
+            background:
+            linear-gradient(rgba(44,32,22,0.8), rgba(44,32,22,0.8)),
+            url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80');
+
+            background-size:cover;
+            background-position:center;
+
+            height:100vh;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .signup-container{
+
+            background:rgba(255,255,255,0.1);
+
+            backdrop-filter:blur(15px);
+
+            padding:40px;
+
+            border-radius:20px;
+
+            border:1px solid rgba(212,165,116,0.3);
+
+            width:90%;
+            max-width:450px;
+
+            text-align:center;
+
+            color:#f5e6d3;
+        }
+
+        .logo-login{
+            width:80px;
+            border-radius:10px;
+            margin-bottom:20px;
+        }
+
+        h2{
+            margin-bottom:25px;
+            color:#d4a574;
+            font-size:28px;
+        }
+
+        .input-group{
+            margin-bottom:15px;
+            text-align:left;
+        }
+
+        .input-group label{
+            display:block;
+            margin-bottom:5px;
+            font-size:14px;
+        }
+
+        .input-group input{
+
+            width:100%;
+
+            padding:10px 15px;
+
+            border-radius:8px;
+
+            border:1px solid rgba(255,255,255,0.2);
+
+            background:rgba(255,255,255,0.05);
+
+            color:#fff;
+
+            outline:none;
+        }
+
+        .input-group input:focus{
+            border-color:#d4a574;
+        }
+
+        .btn-submit{
+
+            width:100%;
+
+            padding:12px;
+
+            background:#d4a574;
+
+            color:#3d2b1f;
+
+            border:none;
+
+            border-radius:8px;
+
+            font-weight:bold;
+
+            cursor:pointer;
+
+            margin-top:10px;
+
+            transition:0.3s;
+        }
+
+        .btn-submit:hover{
+            background:#fff;
+            transform:translateY(-2px);
+        }
+
+        .footer-text{
+            margin-top:20px;
+        }
+
+        .footer-text a{
+            color:#d4a574;
+            text-decoration:none;
+            font-weight:bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="signup-container">
+
+        <img src="assets/images/logocoffe.png" alt="Logo" class="logo-login">
+
+        <h2>BUAT AKUN</h2>
+
+        <form id="signupForm">
+
+            <div class="input-group">
+
+                <label>Nama Lengkap</label>
+
+                <input
+                    type="text"
+                    id="fullname"
+                    placeholder="Masukkan nama lengkap..."
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Email / Username</label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Masukkan email atau username..."
+                    required
+                >
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Password Baru</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Buat password..."
+                    required
+                >
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                DAFTAR SEKARANG
+            </button>
+
+        </form>
+
+        <p class="footer-text">
+            Sudah punya akun?
+            <a href="login.html">Login di sini</a>
+        </p>
+
+    </div>
+
+    <script>
+
+        const signupForm = document.getElementById("signupForm");
+
+        signupForm.addEventListener("submit", function(e){
+
+            e.preventDefault();
+
+            // ambil data input
+            const fullname = document.getElementById("fullname").value;
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // simpan ke localStorage
+            localStorage.setItem("fullname", fullname);
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+
+            // notifikasi berhasil
+            alert("Akun berhasil dibuat! Silahkan login terlebih dahulu 😊");
+
+            // arahkan ke login
+            window.location.href = "index.html";
+
+        });
+
+    </script>
+
+</body>
+</html>
